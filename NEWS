@@ -1,3 +1,9 @@
+Version 0.2.7:
+
+  - Added solid_pixel_buffer (patch by Andrey Potapov).
+
+  - Fixed some compilation problems on Win32.
+
 Version 0.2.5:
 
   - Fixed compatibility with newer libpng versions (>= 1.4)
