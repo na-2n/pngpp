@@ -105,7 +105,7 @@ namespace png
                 {
                     png_set_PLTE(m_png, m_info,
                                  const_cast< color* >(& m_palette[0]),
-                                 m_palette.size());
+                                 (int) m_palette.size());
                 }
                 if (! m_tRNS.empty())
                 {

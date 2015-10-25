@@ -135,7 +135,7 @@ namespace png
         }
 
     private:
-        static void write_data(png_struct* png, byte* data, size_t length)
+        static void write_data(png_struct* png, byte* data, png_size_t length)
         {
             io_base* io = static_cast< io_base* >(png_get_error_ptr(png));
             writer* wr = static_cast< writer* >(io);

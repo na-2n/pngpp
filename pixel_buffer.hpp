@@ -81,19 +81,19 @@ namespace png
         /**
          * \brief Constructs an empty pixel buffer object.
          */
-        basic_pixel_buffer(size_t width, size_t height)
+        basic_pixel_buffer(uint_32 width, uint_32 height)
             : m_width(0),
               m_height(0)
         {
             resize(width, height);
         }
 
-        size_t get_width() const
+        uint_32 get_width() const
         {
             return m_width;
         }
 
-        size_t get_height() const
+        uint_32 get_height() const
         {
             return m_height;
         }
@@ -104,7 +104,7 @@ namespace png
          * If new width or height is greater than the original,
          * expanded pixels are filled with value of \a pixel().
          */
-        void resize(size_t width, size_t height)
+        void resize(uint_32 width, uint_32 height)
         {
             m_width = width;
             m_height = height;
@@ -183,8 +183,8 @@ namespace png
         }
 
     protected:
-        size_t m_width;
-        size_t m_height;
+        uint_32 m_width;
+        uint_32 m_height;
         typedef std::vector< row_type > row_vec;
         row_vec m_rows;
     };
@@ -218,7 +218,7 @@ namespace png
         {
         }
 
-        pixel_buffer(size_t width, size_t height)
+        pixel_buffer(uint_32 width, uint_32 height)
             : basic_pixel_buffer< pixel, std::vector< pixel > >(width, height)
         {
         }
@@ -257,7 +257,7 @@ namespace png
              */
             static size_t get_shift(size_t index)
             {
-                size_t const bits = pixel::get_bit_depth();
+                int const bits = pixel::get_bit_depth();
                 return (8 - bits) - (index % get_pixels_per_byte()) * bits;
             }
 
@@ -446,7 +446,7 @@ namespace png
      * \brief The pixel buffer class template specialization for the
      * packed_gray_pixel type.
      */
-    template< size_t bits >
+    template< int bits >
     class pixel_buffer< packed_gray_pixel< bits > >
         : public basic_pixel_buffer< packed_gray_pixel< bits >,
                                      packed_pixel_row< packed_gray_pixel
@@ -460,7 +460,7 @@ namespace png
         {
         }
 
-        pixel_buffer(size_t width, size_t height)
+        pixel_buffer(uint_32 width, uint_32 height)
             : basic_pixel_buffer< pixel_type,
                                   pixel_row_type >(width, height)
         {
@@ -471,7 +471,7 @@ namespace png
      * \brief The pixel buffer class template specialization for the
      * packed_index_pixel type.
      */
-    template< size_t bits >
+    template< int bits >
     class pixel_buffer< packed_index_pixel< bits > >
         : public basic_pixel_buffer< packed_index_pixel< bits >,
                                      packed_pixel_row< packed_index_pixel
@@ -485,7 +485,7 @@ namespace png
         {
         }
 
-        pixel_buffer(size_t width, size_t height)
+        pixel_buffer(uint_32 width, uint_32 height)
             : basic_pixel_buffer< pixel_type,
                                   pixel_row_type >(width, height)
         {

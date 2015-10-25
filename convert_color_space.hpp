@@ -80,7 +80,7 @@ namespace png
                 printf("<= ");
                 dump_row(row, row_info->rowbytes);
 #endif
-                for (size_t i = row_info->rowbytes; i-- > 0; )
+                for (uint_32 i = row_info->rowbytes; i-- > 0; )
                 {
                     row[2*i + 1] = row[i];
                     row[2*i + 0] = 0;
@@ -92,10 +92,10 @@ namespace png
             }
 
 #ifdef DEBUG_EXPAND_8_16
-            static void dump_row(byte const* row, size_t width)
+            static void dump_row(byte const* row, uint_32 width)
             {
                 printf("{");
-                for (size_t i = 0; i < width; ++i)
+                for (uint_32 i = 0; i < width; ++i)
                 {
                     printf(" %02x,", row[i]);
                 }

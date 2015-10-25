@@ -87,7 +87,7 @@ namespace png
         /**
          * \brief Constructs an empty pixel buffer object.
          */
-        solid_pixel_buffer(size_t width, size_t height)
+        solid_pixel_buffer(uint_32 width, uint_32 height)
             : m_width(0),
               m_height(0),
               m_stride(0)
@@ -95,12 +95,12 @@ namespace png
             resize(width, height);
         }
 
-        size_t get_width() const
+        uint_32 get_width() const
         {
             return m_width;
         }
 
-        size_t get_height() const
+        uint_32 get_height() const
         {
             return m_height;
         }
@@ -111,7 +111,7 @@ namespace png
          * If new width or height is greater than the original,
          * expanded pixels are filled with value of \a pixel().
          */
-        void resize(size_t width, size_t height)
+        void resize(uint_32 width, uint_32 height)
         {
             m_width = width;
             m_height = height;
@@ -165,7 +165,7 @@ namespace png
         void put_row(size_t index, row_const_access r)
         {
             row_access row = get_row();
-            for (size_t i = 0; i < m_width; ++i)
+            for (uint_32 i = 0; i < m_width; ++i)
                 *row++ = *r++;
         }
 
@@ -215,8 +215,8 @@ namespace png
                 pixel_traits_t::bit_depth / CHAR_BIT;
 
     protected:
-        size_t m_width;
-        size_t m_height;
+        uint_32 m_width;
+        uint_32 m_height;
         size_t m_stride;
         std::vector< byte > m_bytes;
 
@@ -235,7 +235,7 @@ namespace png
      * Should there be a gap between rows? How to deal with last
      * useless bits in last byte in buffer?
      */
-    template< size_t bits >
+    template< int bits >
     class solid_pixel_buffer< packed_pixel< bits > >;
 
 } // namespace png

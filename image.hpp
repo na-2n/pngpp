@@ -104,7 +104,7 @@ namespace png
         /**
          * \brief Constructs an empty image of specified width and height.
          */
-        image(size_t width, size_t height)
+        image(uint_32 width, uint_32 height)
             : m_info(make_image_info< pixel >())
         {
             resize(width, height);
@@ -310,12 +310,12 @@ namespace png
             m_pixbuf = buffer;
         }
 
-        size_t get_width() const
+        uint_32 get_width() const
         {
             return m_pixbuf.get_width();
         }
 
-        size_t get_height() const
+        uint_32 get_height() const
         {
             return m_pixbuf.get_height();
         }
@@ -323,7 +323,7 @@ namespace png
         /**
          * \brief Resizes the image pixel buffer.
          */
-        void resize(size_t width, size_t height)
+        void resize(uint_32 width, uint_32 height)
         {
             m_pixbuf.resize(width, height);
             m_info.set_width(width);

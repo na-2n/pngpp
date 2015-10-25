@@ -38,7 +38,7 @@ namespace png
 
     namespace detail
     {
-        template< size_t bits > class allowed_bit_depth;
+        template< int bits > class allowed_bit_depth;
 
         template<> class allowed_bit_depth< 1 > {};
         template<> class allowed_bit_depth< 2 > {};
@@ -50,7 +50,7 @@ namespace png
      *
      * \see packed_gray_pixel, packed_index_pixel
      */
-    template< size_t bits >
+    template< int bits >
     class packed_pixel
         : detail::allowed_bit_depth< bits >
     {
@@ -65,7 +65,7 @@ namespace png
             return m_value;
         }
 
-        static size_t get_bit_depth()
+        static int get_bit_depth()
         {
             return bits;
         }

@@ -69,7 +69,7 @@ namespace png
      * as follows:
      *
      * \code
-     * png::byte* get_next_row(size_t pos);
+     * png::byte* get_next_row(png::uint_32 pos);
      * void reset(size_t pass);
      * \endcode
      *
@@ -168,7 +168,7 @@ namespace png
             {
                 pixel_gen->reset(pass);
 
-                for (size_t pos = 0; pos < this->get_info().get_height(); ++pos)
+                for (uint_32 pos = 0; pos < this->get_info().get_height(); ++pos)
                 {
                     wr.write_row(pixel_gen->get_next_row(pos));
                 }

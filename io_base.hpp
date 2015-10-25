@@ -117,22 +117,22 @@ namespace png
         //////////////////////////////////////////////////////////////////////
         // info accessors
         //
-        size_t get_width() const
+        uint_32 get_width() const
         {
             return m_info.get_width();
         }
 
-        void set_width(size_t width)
+        void set_width(uint_32 width)
         {
             m_info.set_width(width);
         }
 
-        size_t get_height() const
+        uint_32 get_height() const
         {
             return m_info.get_height();
         }
 
-        void set_height(size_t height)
+        void set_height(uint_32 height)
         {
             m_info.set_height(height);
         }
@@ -147,12 +147,12 @@ namespace png
             m_info.set_color_type(color_space);
         }
 
-        size_t get_bit_depth() const
+        int get_bit_depth() const
         {
             return m_info.get_bit_depth();
         }
 
-        void set_bit_depth(size_t bit_depth)
+        void set_bit_depth(int bit_depth)
         {
             m_info.set_bit_depth(bit_depth);
         }

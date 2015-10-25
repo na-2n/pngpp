@@ -68,7 +68,7 @@ namespace png
      * as follows:
      *
      * \code
-     * png::byte* get_next_row(size_t pos);
+     * png::byte* get_next_row(png::uint_32 pos);
      * void reset(size_t pass);
      * \endcode
      *
@@ -242,7 +242,7 @@ namespace png
             {
                 pixel_con->reset(pass);
 
-                for (size_t pos = 0; pos < this->get_info().get_height(); ++pos)
+                for (uint_32 pos = 0; pos < this->get_info().get_height(); ++pos)
                 {
                     rd.read_row(pixel_con->get_next_row(pos));
                 }
