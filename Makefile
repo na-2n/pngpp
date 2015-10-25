@@ -40,6 +40,10 @@ ifdef MINGW
 bin_suffix := .exe
 endif
 
+ifndef CXX
+CXX := g++
+endif
+
 make_cflags := -Wall $(CFLAGS) -I$(PREFIX)/include
 make_ldflags := $(LDFLAGS) -L$(PREFIX)/lib
 
@@ -110,7 +114,7 @@ test-clean:
 test-compile-headers: *.hpp
 	for i in *.hpp; do \
 		echo '#include "'$$i'"' >$$i.cpp \
-		&& g++ -c $$i.cpp $(make_cflags) `$(LIBPNG_CONFIG) --cflags`; \
+		&& $(CXX) -c $$i.cpp $(make_cflags) `$(LIBPNG_CONFIG) --cflags`; \
 	done
 	rm -f *.hpp.o *.hpp.cpp
 

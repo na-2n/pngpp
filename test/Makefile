@@ -36,6 +36,10 @@ ifndef PNGPP
 PNGPP := ..
 endif
 
+ifndef CXX
+CXX := g++
+endif
+
 make_cflags := -Wall $(CFLAGS) -I$(PREFIX)/include -I$(PNGPP)
 make_ldflags := $(LDFLAGS) -L$(PREFIX)/lib
 
@@ -85,13 +89,13 @@ clean-tests-output:
   clean-deps
 
 %$(bin_suffix): %.o
-	g++ -o $@ $< $(make_ldflags) `$(LIBPNG_CONFIG) --ldflags`
+	$(CXX) -o $@ $< $(make_ldflags) `$(LIBPNG_CONFIG) --ldflags`
 
 %.o: %.cpp
-	g++ -c -o $@ $< $(make_cflags) `$(LIBPNG_CONFIG) --cflags`
+	$(CXX) -c -o $@ $< $(make_cflags) `$(LIBPNG_CONFIG) --cflags`
 
 %.dep: %.cpp
-	g++ -M $(CPPFLAGS) $(make_cflags) $< -o- | \
+	$(CXX) -M $(CPPFLAGS) $(make_cflags) $< -o- | \
 	  sed 's/\($*\)\.o[ :]*/\1.o $@ : /g' > $@
 
 clean-deps:
