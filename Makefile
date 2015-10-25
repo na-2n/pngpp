@@ -113,10 +113,8 @@ test-clean:
 
 test-compile-headers: *.hpp
 	for i in *.hpp; do \
-		echo '#include "'$$i'"' >$$i.cpp \
-		&& $(CXX) -c $$i.cpp $(make_cflags) `$(LIBPNG_CONFIG) --cflags`; \
+		$(CXX) -c $$i -o /dev/null $(make_cflags) `$(LIBPNG_CONFIG) --cflags`; \
 	done
-	rm -f *.hpp.o *.hpp.cpp
 
 docs:
 	sed -e 's/@VERSION@/$(version)/g' -i.nover png.hpp Doxyfile
