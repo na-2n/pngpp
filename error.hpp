@@ -31,6 +31,16 @@
 #ifndef PNGPP_ERROR_HPP_INCLUDED
 #define PNGPP_ERROR_HPP_INCLUDED
 
+/* check if we have strerror_s or strerror_r, prefer the former which is C11 std */
+#ifdef __STDC_LIB_EXT1__
+#define __STDC_WANT_LIB_EXT1__ 1
+#include <string.h>
+
+#define HAVE_STRERROR_S 1
+#else
+#undef  HAVE_STRERROR_S
+#endif
+
 #include <string>
 #include <stdexcept>
 #include <cerrno>
@@ -75,9 +85,23 @@ namespace png
          * \param  message  error description
          * \param  error    error number
          */
-        explicit std_error(std::string const& message, int error = errno)
-            : std::runtime_error((message + ": ") + strerror(error))
+        explicit std_error(std::string const& message, int errnum = errno)
+            : std::runtime_error((message + ": ") + thread_safe_strerror(errnum))
         {
+        }
+
+    protected:
+        static std::string thread_safe_strerror(int errnum)
+        {
+#define ERRBUF_SIZE 512
+            char buf[ERRBUF_SIZE];
+#ifdef HAVE_STRERROR_S
+            strerror_s(buf, ERRBUF_SIZE, errnum);
+            return std::string(buf);
+#else
+            return std::string(strerror_r(errnum, buf, ERRBUF_SIZE));
+#endif
+#undef ERRBUF_SIZE
         }
     };
 
