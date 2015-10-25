@@ -453,6 +453,16 @@ namespace png
             m_info.set_tRNS(trns);
         }
 
+        double get_gamma() const
+        {
+            return m_info.get_gamma();
+        }
+
+        void set_gamma(double gamma)
+        {
+            m_info.set_gamma(gamma);
+        }
+
     protected:
         /**
          * \brief A common base class template for pixel_consumer and

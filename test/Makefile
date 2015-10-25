@@ -55,7 +55,7 @@ test: all
 	./test.sh
 
 clean-tests-output:
-	rm -f *.out pngsuite/*.out
+	rm -rf out
 
 .PHONY: dist-copy-files \
   test test-convert_color_space \

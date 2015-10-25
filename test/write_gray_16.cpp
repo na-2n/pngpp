@@ -46,7 +46,7 @@ try
             image[y][x] = pix;
         }
     }
-    image.write("gray_16.out");
+    image.write("out/gray_16.out");
 }
 catch (std::exception const& error)
 {

@@ -59,7 +59,8 @@ namespace png
               m_color_type(color_type_none),
               m_interlace_type(interlace_none),
               m_compression_type(compression_type_default),
-              m_filter_type(filter_type_default)
+              m_filter_type(filter_type_default),
+              m_gamma(0.0)
         {
         }
 
@@ -171,6 +172,16 @@ namespace png
             m_tRNS = trns;
         }
 
+        double get_gamma() const
+        {
+            return m_gamma;
+        }
+
+        void set_gamma(double gamma)
+        {
+            m_gamma = gamma;
+        }
+
     protected:
         uint_32 m_width;
         uint_32 m_height;
@@ -181,6 +192,7 @@ namespace png
         filter_type m_filter_type;
         palette m_palette;
         tRNS m_tRNS;
+        double m_gamma;
     };
 
     /**

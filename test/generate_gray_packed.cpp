@@ -55,13 +55,13 @@ try
     size_t const height = 32;
 
     png::image< png::gray_pixel_1 > image1(width, height);
-    generate_image(image1, "gray_packed_1.png.out");
+    generate_image(image1, "out/gray_packed_1.png.out");
 
     png::image< png::gray_pixel_2 > image2(width, height);
-    generate_image(image2, "gray_packed_2.png.out");
+    generate_image(image2, "out/gray_packed_2.png.out");
 
     png::image< png::gray_pixel_4 > image4(width, height);
-    generate_image(image4, "gray_packed_4.png.out");
+    generate_image(image4, "out/gray_packed_4.png.out");
 }
 catch (std::exception const& error)
 {

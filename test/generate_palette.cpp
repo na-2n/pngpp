@@ -65,19 +65,19 @@ try
 {
     png::image< png::index_pixel_1 > image1;
     generate_image(image1);
-    image1.write("palette1.png.out");
+    image1.write("out/palette1.png.out");
 
     png::image< png::index_pixel_2 > image2;
     generate_image(image2);
-    image2.write("palette2.png.out");
+    image2.write("out/palette2.png.out");
 
     png::image< png::index_pixel_4 > image4;
     generate_image(image4);
-    image4.write("palette4.png.out");
+    image4.write("out/palette4.png.out");
 
     png::image< png::index_pixel > image8;
     generate_image(image8);
-    image8.write("palette8.png.out");
+    image8.write("out/palette8.png.out");
 
     png::image< png::index_pixel > image8_tRNS;
     generate_image(image8_tRNS);
@@ -87,7 +87,7 @@ try
         trns[i] = i;
     }
     image8_tRNS.set_tRNS(trns);
-    image8_tRNS.write("palette8_tRNS.png.out");
+    image8_tRNS.write("out/palette8_tRNS.png.out");
 }
 catch (std::exception const& error)
 {
