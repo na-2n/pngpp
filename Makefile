@@ -58,7 +58,7 @@ endif
 
 build_files := Makefile Doxyfile
 doc_files := AUTHORS BUGS ChangeLog COPYING INSTALL NEWS README TODO
-headers := *.hpp
+headers := $(wildcard *.hpp)
 sources :=
 
 dist_dir := png++-$(version)
@@ -75,7 +75,7 @@ uninstall: uninstall-headers uninstall-docs
 
 install-headers:
 	mkdir -p $(PREFIX)/include/png++
-	cp *.hpp $(PREFIX)/include/png++
+	cp $(headers) $(PREFIX)/include/png++
 
 uninstall-headers:
 	rm -rf $(PREFIX)/include/png++
@@ -111,10 +111,10 @@ test:
 test-clean:
 	$(MAKE) clean -C test $(MAKEFLAGS)
 
-test-compile-headers: *.hpp
-	for i in *.hpp; do \
-		$(CXX) -c $$i -o /dev/null $(make_cflags) `$(LIBPNG_CONFIG) --cflags`; \
-	done
+test-compile-headers: $(headers:%.hpp=%.hpp.o)
+
+%.hpp.o:
+	$(CXX) -c $(@:%.hpp.o=%.hpp) -o /dev/null $(make_cflags) `$(LIBPNG_CONFIG) --cflags`
 
 docs:
 	sed -e 's/@VERSION@/$(version)/g' -i.nover png.hpp Doxyfile
