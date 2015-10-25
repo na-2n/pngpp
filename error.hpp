@@ -94,13 +94,21 @@ namespace png
         static std::string thread_safe_strerror(int errnum)
         {
 #define ERRBUF_SIZE 512
-            char buf[ERRBUF_SIZE];
+            char buf[ERRBUF_SIZE] = { 0 };
+
 #ifdef HAVE_STRERROR_S
             strerror_s(buf, ERRBUF_SIZE, errnum);
             return std::string(buf);
 #else
+#if (_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && !_GNU_SOURCE
+            strerror_r(errnum, buf, ERRBUF_SIZE);
+            return std::string(buf);
+#else
+            /* GNU variant can return a pointer to static buffer instead of buf */
             return std::string(strerror_r(errnum, buf, ERRBUF_SIZE));
 #endif
+#endif
+
 #undef ERRBUF_SIZE
         }
     };
