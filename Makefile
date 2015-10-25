@@ -29,37 +29,17 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+PNGPP := .
+
 # don't forget to update version before releasing!
-version := 0.2.7
+version := 0.2.9
 
-ifndef PREFIX
-PREFIX := /usr/local
-endif
-
-ifdef MINGW
-bin_suffix := .exe
-endif
-
-ifndef CXX
-CXX := g++
-endif
-
-make_cflags := -Wall $(CFLAGS) -I$(PREFIX)/include
-make_ldflags := $(LDFLAGS) -L$(PREFIX)/lib
-
-ifndef NDEBUG
-make_cflags := $(make_cflags) -g
-make_ldflags := $(make_ldflags) -g
-endif
-
-ifndef LIBPNG_CONFIG
-LIBPNG_CONFIG := libpng-config
-endif
-
-build_files := Makefile Doxyfile
+build_files := common.mk Makefile Doxyfile
 doc_files := AUTHORS BUGS ChangeLog COPYING INSTALL NEWS README TODO
 headers := $(wildcard *.hpp)
 sources :=
+
+include common.mk
 
 dist_dir := png++-$(version)
 dist_package := png++-$(version).tar.gz
@@ -99,14 +79,13 @@ dist-package:
 	rm -rf $(dist_dir)
 
 clean: test-clean examples-clean
-#	rm -f $(targets)
 
 thorough-clean: clean docs-clean
 
 check: test
 
 test:
-	$(MAKE) test -C test $(MAKEFLAGS) PNGPP=`pwd`
+	$(MAKE) test -C test $(MAKEFLAGS)
 
 test-clean:
 	$(MAKE) clean -C test $(MAKEFLAGS)
@@ -114,7 +93,7 @@ test-clean:
 test-compile-headers: $(headers:%.hpp=%.hpp.o)
 
 %.hpp.o:
-	$(CXX) -c $(@:%.hpp.o=%.hpp) -o /dev/null $(make_cflags) `$(LIBPNG_CONFIG) --cflags`
+	$(CXX) -c $(@:%.hpp.o=%.hpp) -o /dev/null $(make_cflags)
 
 docs:
 	sed -e 's/@VERSION@/$(version)/g' -i.nover png.hpp Doxyfile
@@ -145,9 +124,9 @@ examples:
 examples-clean:
 	$(MAKE) clean -C example $(MAKEFLAGS)
 
-.PHONY: all install \
+.PHONY: install \
   dist dist-mkdir dist-copy-files dist-package \
-  clean thorough-clean \
+  thorough-clean \
   check test test-clean test-compile-headers \
   docs docs-clean \
   examples examples-clean
