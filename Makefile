@@ -96,10 +96,7 @@ test-compile-headers: $(headers:%.hpp=%.hpp.o)
 	$(CXX) -c $(@:%.hpp.o=%.hpp) -o /dev/null $(make_cflags)
 
 docs:
-	sed -e 's/@VERSION@/$(version)/g' -i.nover png.hpp Doxyfile
-	doxygen
-	mv png.hpp.nover png.hpp
-	mv Doxyfile.nover Doxyfile
+	VERSION=$(version) doxygen
 
 docs-clean:
 	rm -rf doc
